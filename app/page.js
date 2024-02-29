@@ -3,8 +3,9 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white px-28 py-10 rounded-2xl shadow-md">
-        <div><Image src={logo} className="m-auto" alt="buzkar"  width={200} height={88}/></div>
+      <div className="bg-white px-10 py-10 rounded-2xl shadow-md w-[450px]">
+        <div className="w-full">
+          <Image src={logo} className="m-auto" alt="buzkar"  width={200} height={88}/></div>
         <form class="mt-6" action="#" method="POST">
           <div>
             <label class="block text-gray-700">Email Address</label>

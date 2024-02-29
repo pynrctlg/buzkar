@@ -1,6 +1,8 @@
 import logo from "@/public/logo.jpg";
 import Image from "next/image";
+
 export default function Home() {
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white px-10 py-10 rounded-2xl shadow-md w-[450px]">

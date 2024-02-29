@@ -8,8 +8,13 @@ import { IoWater, IoVideocamOutline } from "react-icons/io5";
 import { GrStatusGood } from "react-icons/gr";
 import { BsFillLightbulbFill } from "react-icons/bs";
 import { FaThermometerHalf } from "react-icons/fa";
-import { getData } from "@/app/api/items/data";
+import { getData, newLimit } from "@/app/api/items/data";
+import Iframe from "./Iframe";
 export default async function Box() {
+
+    // const setLimit = async () => {
+    //     await newLimit(data.limit);
+    // }
 
     const data = await getData();
     return (
@@ -25,13 +30,13 @@ export default async function Box() {
                 <FaSignal className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                 <div className="flex flex-col gap-1 z-10">
                     <p className="text-xl">Anlık Sinyal Seviyesi</p>
-                    <p className="flex gap-1 items-center justify-center text-xl">{data.limit} V</p>
+                    <p className="flex gap-1 items-center justify-center text-xl">{data.current_signal} V</p>
                 </div>
             </div>
             <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">
                 <HiMiniSignal className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                 <div className="flex flex-col gap-1 z-10">
-                    <p className="text-xl">Sinyal Referans Değeri</p>
+                    <p className="text-xl">Sinyal Referans Değeri {data.limit}</p>
                     <div className="flex mt-2 gap-2 justify-center">
                         <input type="text" id="limit" className="w-20 border h-[40px] border-solid border-black rounded-md" />
                         <button id="btnKaydet" className="h-[40px] rounded-md bg-blue-400 px-4 text-white">Kaydet</button>
@@ -43,14 +48,16 @@ export default async function Box() {
                 <ImSortNumbericDesc className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                 <div className="flex flex-col gap-1 z-10">
                     <p className="text-xl">Sistem Çalışma Sayısı</p>
-                    <p className="flex gap-1 items-center justify-center text-xl">{data.valf_state}</p>
+                    <p className="flex gap-1 items-center justify-center text-xl">{data.counter}</p>
                 </div>
             </div>
             <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">
                 <IoWater className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                 <div className="flex flex-col gap-1 z-10">
                     <p className="text-xl">Hava Kontol Sistem</p>
-                    <p className="flex gap-1 items-center justify-center text-xl">{data.current_signal}</p>
+                    <p className="flex gap-1 items-center justify-center text-xl">{
+                        data.temp_state === 1 ? 'Açık' : 'Kapalı'
+                    }</p>
                 </div>
             </div>
             <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">
@@ -59,7 +66,7 @@ export default async function Box() {
                     <p className="text-xl">Bar Durumu</p>
                     <p className="flex gap-1 items-center justify-center text-xl">
                         {
-                            data.temp_state === 0 ? 'Dolu' : 'Bos'
+                            data.temp_state === 1 ? 'Dolu' : 'Doluyor'
                         }
                     </p>
                 </div>
@@ -74,17 +81,18 @@ export default async function Box() {
             <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">
                 <BsFillLightbulbFill className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                 <div className="flex flex-col gap-1 z-10">
-                    <p className="text-xl"><BsFillLightbulbFill className="text-4xl m-auto mb-3 text-red-500" /></p>
-                    <button id="kameraAc" className="h-[40px] rounded-md bg-blue-400 px-4 text-white">Kamera Aç</button>
+                    <p className="text-xl"><BsFillLightbulbFill className={`text-4xl m-auto mb-3 ${data.valf_state === 1 ? 'text-green-500' : 'text-red-500'}`} /></p>
+                    <button id="manuelVurus" className="h-[40px] rounded-md bg-blue-400 px-4 text-white">Vuruş Yap</button>
                 </div>
             </div>
             <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">
                 <FaThermometerHalf className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                 <div className="flex flex-col gap-1 z-10">
-                    <p className="text-xl"><BsFillLightbulbFill className={`text-4xl m-auto mb-3 ${data.res_state === 0 ? 'text-green-500' : 'text-red-500'}`} /></p>
+                    <p className="text-xl"><BsFillLightbulbFill className={`text-4xl m-auto mb-3 ${data.res_state === 1 ? 'text-green-500' : 'text-red-500'}`} /></p>
                     <p className="text-xl">Resizdans</p>
                 </div>
             </div>
+            
         </div>
     )
 }

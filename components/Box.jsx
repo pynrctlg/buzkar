@@ -8,19 +8,30 @@ import { GrStatusGood } from "react-icons/gr";
 import { BsFillLightbulbFill } from "react-icons/bs";
 import { FaThermometerHalf } from "react-icons/fa";
 import React, { useState, useEffect } from 'react';
-import { IoCloseCircle } from "react-icons/io5";
 import Iframe from "./Iframe";
 export default function Box() {
     const scrollToTop = () => {
         window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
+            top: 0,
+            behavior: 'smooth',
         });
-      };
+    };
+    const [sinyal, setSinyal] = useState()
     const [iframeDiv, setiframeDiv] = useState(false)
     const [data, setData] = useState({});
     const [hava, setHava] = useState({});
 
+    const sinyalDeg = async () => {
+        const response = fetch("http://localhost:3000/api/sinyal",{
+            method:POST,
+            body: JSON.stringify({sinyal}),
+            headers:{
+                'Content-type':'application/json'
+            }
+        })
+        const data = await response.json();
+        console.log(data)
+    }
     const vurusFn = () => {
 
         fetch("http://localhost:3000/api/vurus")
@@ -85,7 +96,7 @@ export default function Box() {
 
     return (
         <div>
-            <Iframe setiframeDiv={setiframeDiv} iframeDiv={iframeDiv}/>
+            <Iframe setiframeDiv={setiframeDiv} iframeDiv={iframeDiv} />
             <div className="max-w-[800px] lg:w-full grid grid-cols-1 lg:grid-cols-3 gap-4 m-auto mt-8 w-[90%]">
                 <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">
                     <TiWeatherShower className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
@@ -93,7 +104,7 @@ export default function Box() {
                         <p className="text-xl">Hava Durumu</p>
                         <p className="flex gap-1 items-center justify-center text-xl">
                             {/* <FaRegSun className="text-yellow-500" /> */}
-                            <img src={hava.temp_c_img} />
+                            {/* <img src={hava.temp_c_img} /> */}
                             {hava.temp_c} °C</p>
                     </div>
                 </div>
@@ -109,8 +120,8 @@ export default function Box() {
                     <div className="flex flex-col gap-1 z-10">
                         <p className="text-xl">Sinyal Referans Değeri</p>
                         <div className="flex mt-2 gap-2 justify-center">
-                            <input type="text" id="limit" value={data.limit} className="w-20 border h-[40px] border-solid border-black rounded-md" />
-                            <button id="btnKaydet" className="h-[40px] rounded-md bg-blue-400 px-4 text-white">Kaydet</button>
+                            <input type="text" onChange={(e) => setSinyal(e.target.value)} value={data.limit} className="w-20 border h-[40px] border-solid border-black rounded-md" />
+                            <button id="btnKaydet" onClick={sinyalDeg} className="h-[40px] rounded-md bg-blue-400 px-4 text-white">Kaydet</button>
                         </div>
                         <p className="flex gap-1 items-center justify-center text-xl"></p>
                     </div>
@@ -144,7 +155,7 @@ export default function Box() {
                     <IoVideocamOutline className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                     <div className="flex flex-col gap-1 z-10">
                         <p className="text-xl">Dış Kamera</p>
-                        <button onClick={() => (setiframeDiv(true),scrollToTop())} className="h-[40px] rounded-md bg-blue-400 px-4 text-white" scroll={true}>Kamera Aç</button>
+                        <button onClick={() => (setiframeDiv(true), scrollToTop())} className="h-[40px] rounded-md bg-blue-400 px-4 text-white" scroll={true}>Kamera Aç</button>
                     </div>
                 </div>
                 <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">

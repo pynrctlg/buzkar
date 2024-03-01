@@ -1,7 +1,15 @@
+import axios from "axios";
+
+const apiEndpoint = "https://rts:Rst.2023@rts.buzkar.keenetic.pro";
+
+const http = axios.create({
+    baseURL: apiEndpoint,
+})
+
 // const apiEndpoint = "http://clubbe.online";
-const apiEndpoint = "https://rts.buzkar.keenetic.pro";
+
 export async function getData() {
-    const res = await fetch("http://clubbe.online/json/hava.json")
+    //const res = await fetch("http://clubbe.online/json/hava.json")
     // const res = await fetch(apiEndpoint + "/get-data", {
     //     headers: {
     //         'append': {
@@ -10,7 +18,15 @@ export async function getData() {
     //     },
     //     method: 'POST'
     // })
-    return res.json()
+    try {
+        const res = await http.post('/get-data');
+        console.log(res.data);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return {};
+    }
+
 }
 
 export async function newLimit(limit) {

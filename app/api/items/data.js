@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiEndpoint = "https://rts:Rst.2023@rts.buzkar.keenetic.pro";
+const apiEndpoint = "https://www:@rts.buzkar.keenetic.pro";
 
 const http = axios.create({
     baseURL: apiEndpoint,

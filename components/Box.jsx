@@ -118,7 +118,7 @@ export default function Box() {
                     <div className="flex flex-col gap-1 z-10">
                         <p className="text-xl">Anlık Sinyal Seviyesi</p>
                         <p className="flex gap-1 items-center justify-center text-xl">{data.current_signal} V</p>
-                    </div>
+                    </div> 
                 </div>
                 <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">
                     <HiMiniSignal className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />

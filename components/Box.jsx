@@ -109,7 +109,7 @@ export default function Box() {
                         <p className="text-xl">Hava Durumu</p>
                         <p className="flex gap-1 items-center justify-center text-xl">
                             {/* <FaRegSun className="text-yellow-500" /> */}
-                            {/* <img src={hava.temp_c_img} /> */}
+                            <img src={hava.temp_c_img} />
                             {hava.temp_c} °C</p>
                     </div>
                 </div>

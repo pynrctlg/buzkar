@@ -16,25 +16,30 @@ export default function Box() {
             behavior: 'smooth',
         });
     };
-    const [sinyal, setSinyal] = useState()
-    const [iframeDiv, setiframeDiv] = useState(false)
+    const [limit, setLimit] = useState(0);
+    const [iframeDiv, setiframeDiv] = useState(false);
     const [data, setData] = useState({});
     const [hava, setHava] = useState({});
 
-    const sinyalDeg = async () => {
-        const response = fetch("http://localhost:3000/api/sinyal",{
-            method:POST,
-            body: JSON.stringify({sinyal}),
-            headers:{
-                'Content-type':'application/json'
+    const changeLimit = () => {
+        fetch("/api/limit", {
+            method: 'POST',
+            body: JSON.stringify({ limit: limit }),
+            headers: {
+                'Content-type': 'application/json'
             }
         })
-        const data = await response.json();
-        console.log(data)
+            .then(res => res.json())
+            .then(response => {
+                const _limit = response.limit;
+                data.limit = _limit;
+                setData(data);
+            });
+
     }
     const vurusFn = () => {
 
-        fetch("http://localhost:3000/api/vurus")
+        fetch("/api/vurus")
             .then(res => res.json())
             .then(_data => {
                 data.val_state = _data.valf_state;
@@ -47,7 +52,7 @@ export default function Box() {
     };
 
     const gData = () => {
-        fetch("http://localhost:3000/api/data")
+        fetch("/api/data")
             .then(res => res.json())
             .then(_data => {
                 setData(_data);
@@ -120,8 +125,8 @@ export default function Box() {
                     <div className="flex flex-col gap-1 z-10">
                         <p className="text-xl">Sinyal Referans Değeri</p>
                         <div className="flex mt-2 gap-2 justify-center">
-                            <input type="text" onChange={(e) => setSinyal(e.target.value)} value={data.limit} className="w-20 border h-[40px] border-solid border-black rounded-md" />
-                            <button id="btnKaydet" onClick={sinyalDeg} className="h-[40px] rounded-md bg-blue-400 px-4 text-white">Kaydet</button>
+                            <input type="text" onChange={(e) => setLimit(e.target.value)} defaultValue={data?.limit?.toFixed(2)} className="w-20 border h-[40px] border-solid border-black rounded-md" />
+                            <button id="btnKaydet" onClick={changeLimit} className="h-[40px] rounded-md bg-blue-400 px-4 text-white">Kaydet</button>
                         </div>
                         <p className="flex gap-1 items-center justify-center text-xl"></p>
                     </div>

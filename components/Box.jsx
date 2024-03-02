@@ -126,7 +126,7 @@ export default function Box() {
                     <div className="flex flex-col gap-1 z-10">
                         <p className="text-xl">Sinyal Referans Değeri</p>
                         <div className="flex mt-2 gap-2 justify-center">
-                            <input type="text" onChange={(e) => setLimit(e.target.value)} defaultValue={data?.limit?.toFixed(2)} className="w-20 border h-[40px] border-solid border-black rounded-md" />
+                            <input type="text" onChange={(e) => setLimit(e.target.value)} defaultValue={data?.limit?.toFixed(2)} className="pl-2 w-20 border h-[40px] border-solid border-black rounded-md" />
                             <button id="btnKaydet" onClick={changeLimit} className="h-[40px] rounded-md bg-blue-400 px-4 text-white">Kaydet</button>
                         </div>
                         <p className="flex gap-1 items-center justify-center text-xl"></p>

@@ -30,27 +30,12 @@ const sendEmail = async (data) => {
     })
 }
 
-export async function GET(req) {
+// export async function GET(req) {
 
-    const res = await http.post('/get-data');
-    const data = res.data;
+//     const res = await http.post('/get-data');
+//     const data = res.data;
 
-    const msg = JSON.stringify(data);
-
-    let senData = {
-        to: "bircantanoba@gmail.com",
-        subject: "Buzkar Bilgi",
-        html: msg,
-    };
-
-    await sendEmail(senData);
-
-    return NextResponse.json({ message: msg }, { status: 200 })
-}
-// export async function POST(req) {
-//     const body = await req.json();
-
-//     const msg = JSON.stringify(body);
+//     const msg = JSON.stringify(data);
 
 //     let senData = {
 //         to: "bircantanoba@gmail.com",
@@ -62,3 +47,18 @@ export async function GET(req) {
 
 //     return NextResponse.json({ message: msg }, { status: 200 })
 // }
+export async function POST(req) {
+    const body = await req.json();
+
+    const msg = JSON.stringify(body);
+
+    let senData = {
+        to: "bircantanoba@gmail.com",
+        subject: "Buzkar Bilgi",
+        html: msg,
+    };
+
+    await sendEmail(senData);
+
+    return NextResponse.json({ message: msg }, { status: 200 })
+}

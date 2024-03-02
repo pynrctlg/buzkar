@@ -174,7 +174,7 @@ export default function Box() {
                     <FaThermometerHalf className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                     <div className="flex flex-col gap-1 z-10">
                         <p className="text-xl"><BsFillLightbulbFill className={`text-4xl m-auto mb-3 ${data.res_state === 1 ? 'text-green-500' : 'text-red-500'}`} /></p>
-                        <p className="text-xl">Resizdans</p>
+                        <p className="text-xl">Isıtıcı</p>
                     </div>
                 </div>
             </div>

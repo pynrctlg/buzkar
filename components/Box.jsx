@@ -161,7 +161,7 @@ export default function Box() {
                     <IoVideocamOutline className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                     <div className="flex flex-col gap-1 z-10">
                         <p className="text-xl">Dış Kamera</p>
-                        <button onClick={() => (setiframeDiv(true), scrollToTop())} className="h-[40px] rounded-md bg-blue-400 px-4 text-white" scroll={true}>Kamera Aç</button>
+                        <button onClick={() => (setiframeDiv(true), scrollToTop())} className="h-[40px] rounded-md bg-blue-400 px-4 text-white">Kamera Aç</button>
                     </div>
                 </div>
                 <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">
@@ -175,7 +175,7 @@ export default function Box() {
                     <FaThermometerHalf className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />
                     <div className="flex flex-col gap-1 z-10">
                         <p className="text-xl"><BsFillLightbulbFill className={`text-4xl m-auto mb-3 ${data.res_state === 1 ? 'text-green-500' : 'text-red-500'}`} /></p>
-                        <p className="text-xl">Isıtıcı</p>
+                        <p className="text-xl">Rezistans</p>
                     </div>
                 </div>
             </div>

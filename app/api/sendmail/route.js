@@ -1,5 +1,4 @@
 import { NextResponse, NextRequest } from "next/server";
-import axios from "axios";
 import nodemailer from "nodemailer"
 
 // Replace with your SMTP credentials

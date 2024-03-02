@@ -9,6 +9,7 @@ const http = axios.create({
 })
 
 
+
 export async function GET(request) {
     const res = await http.post('/turn-on');
     return NextResponse.json(res.data, { status: 200 })

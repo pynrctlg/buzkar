@@ -16,6 +16,7 @@ export default function Box() {
             behavior: 'smooth',
         });
     };
+    
     const [limit, setLimit] = useState(0);
     const [iframeDiv, setiframeDiv] = useState(false);
     const [data, setData] = useState({});

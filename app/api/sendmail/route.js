@@ -25,12 +25,13 @@ export const sendEmail = async (data) => {
 }
 
 export async function POST(req) {
-    const { body } = await req.json();
+    const body = await req.json();
+
     const msg = JSON.stringify(body);
     console.log(process.env.SMTP_FROM_EMAIL);
     let senData = {
         to: "bircantanoba@gmail.com",
-        subject: "Welcome to NextAPI",
+        subject: "Buzkar Bilgi",
         html: msg,
     };
 

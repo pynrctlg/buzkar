@@ -13,7 +13,7 @@ const smtpOptions = {
     },
 }
 
-export const sendEmail = async (data) => {
+const sendEmail = async (data) => {
     const transporter = nodemailer.createTransport({
         ...smtpOptions,
     })

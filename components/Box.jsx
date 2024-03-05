@@ -16,7 +16,7 @@ export default function Box() {
             behavior: 'smooth',
         });
     };
-    
+
     const [limit, setLimit] = useState(0);
     const [iframeDiv, setiframeDiv] = useState(false);
     const [data, setData] = useState({});
@@ -51,51 +51,70 @@ export default function Box() {
             });
 
     };
-
+    let isRunGData = false;
     const gData = () => {
-        fetch("/api/data")
-            .then(res => res.json())
-            .then(_data => {
-                setData(_data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
+        if (!isRunGData) {
+            isRunGData = true;
 
-    const gTemp = () => {
-        fetch("https://api.weatherapi.com/v1/current.json?key=4ad1fe8f77124e6b8ea90836242302&q=40.603643,31.328984", { method: 'GET' })
-            .then(res => res.json())
-            .then(_data => {
-                let temp_c = _data.current.feelslike_c;
-                let temp_c_img = _data.current.condition.icon;
-                setHava({ temp_c: temp_c, temp_c_img: temp_c_img });
-            })
-            .catch(err => {
-                console.log(err);
-            });
+            fetch("/api/data")
+                .then(res => res.json())
+                .then(_data => {
+                    setData(_data);
+                })
+                .catch(err => {
+                    console.log(err);
+                }).finally(() => {
+                    isRunGData = false;
+                    setTimeout(() => {
+                        gData();
+                    }, 2000);
+                });
+        }
+
     };
+    let isRunTData = false;
+    const gTemp = () => {
+        if (!isRunTData) {
+            isRunTData = true;
+            fetch("https://api.weatherapi.com/v1/current.json?key=4ad1fe8f77124e6b8ea90836242302&q=40.603643,31.328984", { method: 'GET' })
+                .then(res => res.json())
+                .then(_data => {
+                    let temp_c = _data.current.feelslike_c;
+                    let temp_c_img = _data.current.condition.icon;
+                    setHava({ temp_c: temp_c, temp_c_img: temp_c_img });
+                })
+                .catch(err => {
+                    console.log(err);
+                }).finally(() => {
+                    isRunTData = false;
+                    setTimeout(() => {
+                        gTemp();
+                    }, 10000);
+                });;
+        };
+    }
+
 
     useEffect(() => {
 
         gData();
         gTemp();
 
-        const dataInterval = setInterval(() => {
+        // const dataInterval = setInterval(() => {
 
-            gData();
+        //     gData();
 
-        }, 2000);
+        // }, 2000);
 
 
-        const tempInterval = setInterval(() => {
+        // const tempInterval = setInterval(() => {
 
-            gTemp();
+        //     gTemp();
 
-        }, 10000);
+        // }, 10000);
         return () => {
-            clearInterval(dataInterval);
-            clearInterval(tempInterval);
+            // clearInterval(dataInterval);
+            //clearInterval(tempInterval);
         }
     }, [])
 
@@ -119,7 +138,7 @@ export default function Box() {
                     <div className="flex flex-col gap-1 z-10">
                         <p className="text-xl">Anlık Sinyal Seviyesi</p>
                         <p className="flex gap-1 items-center justify-center text-xl">{data.current_signal} V</p>
-                    </div> 
+                    </div>
                 </div>
                 <div className="relative bg-white w-full min-h-[200px] overflow-hidden flex items-center justify-center rounded-3xl shadow-md">
                     <HiMiniSignal className="absolute top-0 text-[12rem] left-[-50px] text-blue-400 opacity-15 " />

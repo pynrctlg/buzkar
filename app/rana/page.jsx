@@ -21,7 +21,7 @@ export default function Data() {
     return (
         <div>
             <Header />
-            <center style={{ "padding": "50px" }}>Çok yakında babası {ip}</center>
+            <center style={{ "padding": "50px" }}>Çok yakında babası</center>
         </div>
     )
 }
